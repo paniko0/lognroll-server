@@ -1,0 +1,32 @@
+<html>
+  <body>
+    <script src="http://cdn.pubnub.com/pubnub-3.7.18.min.js"></script>
+  </body>
+</html>
+
+<script type="text/javascript">
+
+  var pubnub = PUBNUB({
+    subscribe_key: getParameterByName('subscribeKey')
+  });
+
+  pubnub.subscribe({
+    channel: getParameterByName('channel'),
+    message: function(m){
+      document.write(m + "<br>")
+    },
+    error: function (error) {
+      // Handle error here
+      console.log(JSON.stringify(error));
+    }
+  });
+
+  function getParameterByName(name) {
+    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+        results = regex.exec(location.search);
+    return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
+  }
+
+
+</script>
